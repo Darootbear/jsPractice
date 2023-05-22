@@ -1,0 +1,63 @@
+function countEvenNums(str){
+  //Declare a variable counter and initialize it to 0
+  let counter=0;
+  //Declare an array "numbers" and initialize it to the result of using the spread operator on the string
+  let numbers=[...str];
+  //Reinitialize numbers to be the result of numbers using the filter method with typeOf number 
+  numbers=numbers.filter(index=>parseInt(index));
+  // //Use forEach to run through each index of the array and check if it is even using modulo, and increment the counter variable by 1 if so
+  numbers.forEach((index)=>{
+    if(index%2==0) counter++;
+  });
+  //return the counter variable. 
+  return counter; 
+}
+
+function countOddNums(str){
+  //Declare a variable counter and initialize it to 0
+  let counter=0;
+  //Declare an array "numbers" and initialize it to the result of using the spread operator on the string
+  let numbers=[...str];
+  //Reinitialize numbers to be the result of numbers using the filter method with typeOf number 
+  numbers=numbers.filter(index=>parseInt(index));
+  // //Use forEach to run through each index of the array and check if it is even using modulo, and increment the counter variable by 1 if so
+  numbers.forEach((index)=>{
+    if(index%2==1) counter++;
+  });
+  //return the counter variable. 
+  return counter; 
+}
+
+//Declare a function playsWithNums
+//Input: string
+//Output: String that replaces 'e' and 'o' using previous functions
+
+function playWithNums(str){
+  //If statement that checks if the string includes "E" 
+  if (str.includes('E')){
+  	//Declare variable left that is initialized to the first index of the string (inclusive) to the index of 'E' (exclusive)
+  	let left=str.substring(0,str.indexOf('E'));
+  	//Declare variable right that is initialized to the first index of the string after 'e' (inclusive) to the last index of the string
+  	let right=str.substring(str.indexOf('E')+1);
+  	//If statement with the condition of left being equal to or greater than right Set the character of the string at index of 'e' to the result of calling countEvenNums invoking in the argument left
+  	if( left.length>=right.length) str=str.replace('E',countEvenNums(left));
+  	//Else statement setting the character of the string at index of 'E' to the result of invoking countEvenNumbs passing in right
+  	else str=str.replace('E',countEvenNums(right));
+  }
+  //If statement that checks if the string includes "O" 
+  if (str.includes('O')){
+  	//Declare variable right that is initialized to the first index of the string (inclusive) to the index of 'O' (exclusive)
+  	let left=str.substring(0,str.indexOf('O'));
+  	//Declare variable left that is initialized to the first index of the string after 'O' (inclusive) to the last index of the string
+ 		let right=str.substring(str.indexOf('O')+1);
+  	//If statement with the condition of right being equal to or less than left Set the character of the string at index of 'O' to the 			result of calling countOddNums invoking in the argument right
+  	if(right.length<=left.length) str=str.replace('O',countOddNums(right));
+  	//Else statement setting the character of the string at index of 'O' to the result of invoking countEvenNumbs passing in left
+    else str=str.replace('O',countOddNums(left));
+  }
+  //return the str
+   return str;
+}
+
+console.log(playWithNums('12O3E4567')); // '121314567'
+console.log(playWithNums('2E93O5741'));// '219335741'
